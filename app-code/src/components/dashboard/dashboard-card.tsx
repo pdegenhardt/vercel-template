@@ -15,10 +15,10 @@ interface DashboardCardProps {
 
 export function DashboardCard({ title, value, description, icon, trend }: DashboardCardProps) {
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden border-primary/10 hover:border-primary/30 transition-colors">
       <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        {icon && <div className="w-5 h-5 text-muted-foreground">{icon}</div>}
+        {icon && <div className="w-5 h-5 text-primary">{icon}</div>}
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">{value}</div>
@@ -26,7 +26,7 @@ export function DashboardCard({ title, value, description, icon, trend }: Dashbo
           {trend && (
             <span
               className={`text-xs ${
-                trend.isPositive ? "text-green-500" : "text-red-500"
+                trend.isPositive ? "text-primary" : "text-destructive"
               }`}
             >
               {trend.isPositive ? "↑" : "↓"} {Math.abs(trend.value)}%

@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 
 // Icons for the sidebar
 const DashboardIcon = () => (
@@ -144,9 +145,6 @@ export default function DashboardLayout({
         <div className="hidden md:flex md:w-64 md:flex-col">
           <div className="flex min-h-0 flex-1 flex-col border-r">
             <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
-              <div className="flex flex-shrink-0 items-center px-4">
-                <h1 className="text-xl font-bold">Admin Dashboard</h1>
-              </div>
               <nav className="mt-8 flex-1 space-y-1 px-2">
                 {navigation.map((item) => (
                   <Link
@@ -205,7 +203,13 @@ export default function DashboardLayout({
               <div className="flex min-h-0 flex-1 flex-col border-r">
                 <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
                   <div className="flex flex-shrink-0 items-center px-4">
-                    <h1 className="text-xl font-bold">Admin Dashboard</h1>
+                    <Image 
+                      src="/cloud-reverse-128.png" 
+                      alt="Logo" 
+                      width={32}
+                      height={32}
+                      className="h-8 w-auto"
+                    />
                   </div>
                   <nav className="mt-8 flex-1 space-y-1 px-2">
                     {navigation.map((item) => (

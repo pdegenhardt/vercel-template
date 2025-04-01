@@ -31,9 +31,9 @@ export function TaskCard({ task, onEdit, onDelete }: TaskCardProps) {
   };
 
   const priorityColor = {
-    low: 'bg-blue-100 text-blue-700',
-    medium: 'bg-yellow-100 text-yellow-700',
-    high: 'bg-red-100 text-red-700',
+    low: 'bg-primary/10 text-primary',
+    medium: 'bg-secondary/20 text-secondary-foreground',
+    high: 'bg-destructive/10 text-destructive',
   }[task.priority];
 
   const formatDate = (date: Date | undefined) => {
@@ -45,7 +45,7 @@ export function TaskCard({ task, onEdit, onDelete }: TaskCardProps) {
     <Card
       ref={setNodeRef}
       style={style}
-      className="mb-2 cursor-grab active:cursor-grabbing"
+      className="mb-2 cursor-grab active:cursor-grabbing border-primary/10 hover:border-primary/30 transition-colors"
       {...attributes}
       {...listeners}
     >

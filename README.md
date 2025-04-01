@@ -137,30 +137,25 @@ The Memory Bank is a structured documentation system designed to maintain perfec
    cd admin-dashboard-template
    ```
 
-2. Install dependencies:
+2. Run the setup script:
+   ```bash
+   # Make the script executable if needed
+   chmod +x setup.js
+   
+   # Run the setup script
+   ./setup.js
+   ```
+   
+   This automated setup script will:
+   - Install dependencies
+   - Generate a secure NextAuth secret
+   - Configure OAuth providers (Google and GitHub) if desired
+   - Set up environment variables
+   - Update authentication configuration
+
+3. Run the development server:
    ```bash
    cd app-code
-   npm install
-   # or
-   yarn install
-   ```
-
-3. Set up environment variables:
-   Create a `.env.local` file in the `app-code` directory with:
-   ```
-   NEXTAUTH_URL=http://localhost:3000
-   NEXTAUTH_SECRET=your-nextauth-secret
-   
-   # OAuth providers (optional)
-   GITHUB_CLIENT_ID=your-github-client-id
-   GITHUB_CLIENT_SECRET=your-github-client-secret
-   
-   GOOGLE_CLIENT_ID=your-google-client-id
-   GOOGLE_CLIENT_SECRET=your-google-client-secret
-   ```
-
-4. Run the development server:
-   ```bash
    npm run dev
    # or
    yarn dev

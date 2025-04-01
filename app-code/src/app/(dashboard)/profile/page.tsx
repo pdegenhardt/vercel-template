@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { ProfileImageUpload } from "@/components/profile/profile-image-upload";
 
 // Profile form schema
 const profileFormSchema = z.object({
@@ -99,6 +100,7 @@ export default function ProfilePage() {
         <TabsList>
           <TabsTrigger value="general">General</TabsTrigger>
           <TabsTrigger value="password">Password</TabsTrigger>
+          <TabsTrigger value="picture">Profile Picture</TabsTrigger>
         </TabsList>
         
         {/* General Information Tab */}
@@ -254,6 +256,21 @@ export default function ProfilePage() {
                   </Button>
                 </form>
               </Form>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        
+        {/* Profile Picture Tab */}
+        <TabsContent value="picture" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Profile Picture</CardTitle>
+              <CardDescription>
+                Upload or change your profile picture.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ProfileImageUpload />
             </CardContent>
           </Card>
         </TabsContent>

@@ -1,11 +1,19 @@
-"use client";
-
 import { Inter } from "next/font/google";
-import { ThemeProvider } from "next-themes";
-import { SessionProvider } from "next-auth/react";
+import { Metadata } from "next";
 import "./globals.css";
 
+// Client components
+import ClientLayout from "./client-layout";
+
 const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Admin Dashboard",
+  description: "A modern admin dashboard template",
+  icons: {
+    icon: "/favicon.ico",
+  },
+};
 
 export default function RootLayout({
   children,
@@ -15,16 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <SessionProvider>
-          <ThemeProvider
-            attribute="class" 
-            defaultTheme="system" 
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </SessionProvider>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

@@ -41,12 +41,12 @@ const users = [
 export const config: AuthOptions = {
   providers: [
     GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID || "github-client-id",
-      clientSecret: process.env.GITHUB_CLIENT_SECRET || "github-client-secret",
+      clientId: process.env.GITHUB_CLIENT_ID || "github-client-id-placeholder",
+      clientSecret: process.env.GITHUB_CLIENT_SECRET || "github-client-secret-placeholder",
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || "google-client-id",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "google-client-secret",
+      clientId: process.env.GOOGLE_CLIENT_ID || "google-client-id-placeholder",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "google-client-secret-placeholder",
     }),
     CredentialsProvider({
       name: "Credentials",
