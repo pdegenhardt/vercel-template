@@ -131,11 +131,13 @@ The Memory Bank is a structured documentation system designed to maintain perfec
 
 ### Installation
 
-1. Clone the repository:
+1. Clone the repository into a new directory with your app name:
    ```bash
-   git clone https://github.com/yourusername/admin-dashboard-template.git
-   cd admin-dashboard-template
+   git clone https://github.com/pdegenhardt/vercel-template.git your-app-name
+   cd your-app-name
    ```
+   
+   Replace `your-app-name` with the actual name you want for your application.
 
 2. Run the setup script:
    ```bash

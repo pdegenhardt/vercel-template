@@ -47,6 +47,40 @@ The UI is built on shadcn/ui components:
 - **Customization**: Components adapted to project needs
 - **Composition**: Building complex UI by composing multiple shadcn/ui components
 
+## Setup Utilities
+
+### Modular Setup Architecture
+
+The project includes a comprehensive setup system implemented with Node.js:
+
+- **Entry Point**: `setup.js` serves as the main entry point that requires and executes the modular implementation
+- **Module Structure**: Functionality is divided into specialized modules in the `setup/` directory
+- **Error Handling**: Robust error handling with informative messages and proper cleanup
+
+The setup system includes the following key modules:
+
+- **logger.js**: Custom logging utilities with colored output for different message types (info, success, error)
+- **project.js**: Validates the project structure to ensure all required directories and files exist
+- **auth-utils.js**: Provides utilities for generating secure NextAuth secrets and other authentication helpers
+- **dependencies.js**: Manages the installation of required npm packages
+- **environment.js**: Handles the creation and configuration of environment variables
+- **auth-config.js**: Updates the NextAuth configuration with provider settings
+- **github-oauth.js** and **google-oauth.js**: Specialized modules for configuring specific OAuth providers
+- **utils.js**: General utility functions used across the setup process
+
+### Setup Process Flow
+
+The setup process follows a sequential flow:
+
+1. Check project structure to ensure all required directories exist
+2. Generate a secure NextAuth secret for JWT encryption
+3. Install or update required dependencies
+4. Guide the user through Google OAuth configuration
+5. Guide the user through GitHub OAuth configuration
+6. Update the auth configuration files with the provided credentials
+7. Set up environment variables with the collected configuration
+8. Complete the setup with success message and next steps
+
 ## Authentication
 
 ### NextAuth.js
@@ -60,6 +94,7 @@ Authentication has been implemented with NextAuth.js:
 - **Middleware**: Route protection through `middleware.ts`
 - **Session Management**: `useSession` hook for client-side access
 - **Mock Data**: Sample user for demonstration purposes
+- **Automated Setup**: Dedicated setup scripts to streamline OAuth configuration
 
 Example from auth.ts:
 ```typescript
@@ -77,6 +112,20 @@ export const authConfig: AuthOptions = {
   // Session, callbacks, etc.
 };
 ```
+
+### OAuth Configuration
+
+The setup process includes guided configuration for OAuth providers:
+
+- **Google OAuth**: Interactive setup for Google Cloud Console credentials
+  - Client ID and secret collection
+  - Redirect URI configuration
+  - Scopes configuration for profile and email access
+
+- **GitHub OAuth**: Interactive setup for GitHub OAuth Apps
+  - Client ID and secret collection
+  - Callback URL configuration
+  - Permission scopes setup
 
 ## Form Management
 
@@ -203,4 +252,18 @@ Key dependencies installed and used:
 - **Styling**: tailwindcss, next-themes
 - **Drag and Drop**: @dnd-kit/core, @dnd-kit/sortable
 - **Visualization**: recharts
-- **Utilities**: uuid
+- **Utilities**: uuid, crypto (for NextAuth secret generation)
+- **Setup Utilities**: readline (for interactive prompts), chalk (for colored console output)
+
+### Environment Variables
+
+The project uses environment variables for configuration, which are set up during the setup process:
+
+- **NEXTAUTH_SECRET**: Securely generated random string for JWT encryption
+- **NEXTAUTH_URL**: The base URL for NextAuth callbacks (defaults to http://localhost:3000)
+- **GITHUB_CLIENT_ID**: GitHub OAuth application client ID
+- **GITHUB_CLIENT_SECRET**: GitHub OAuth application client secret
+- **GOOGLE_CLIENT_ID**: Google OAuth client ID
+- **GOOGLE_CLIENT_SECRET**: Google OAuth client secret
+
+These variables are stored in a `.env.local` file in the app-code directory and loaded by Next.js at runtime.

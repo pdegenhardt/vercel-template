@@ -9,6 +9,19 @@ The Admin Dashboard template follows a modern Next.js 15 architecture utilizing 
 The project has been organized according to the following directory structure:
 
 ```
+setup.js                      # Entry point for setup process
+setup/                        # Modular setup implementation
+├── index.js                  # Main setup orchestration
+├── auth-config.js            # NextAuth configuration utilities
+├── auth-utils.js             # Authentication helper functions
+├── dependencies.js           # Dependency installation management
+├── environment.js            # Environment variables setup
+├── github-oauth.js           # GitHub OAuth configuration
+├── google-oauth.js           # Google OAuth configuration
+├── logger.js                 # Logging utilities for setup
+├── project.js                # Project structure validation
+└── utils.js                  # General utility functions
+
 app-code/
 ├── src/                      # Source directory
 │   ├── app/                  # Next.js app directory
@@ -70,6 +83,36 @@ The project follows a clear component hierarchy:
 
 This pattern promotes reusability and separation of concerns throughout the application.
 
+### Setup Architecture
+
+The project implements a modular setup architecture to streamline the configuration process:
+
+1. **Entry Point**: A simple `setup.js` script that serves as the entry point for the setup process
+2. **Modular Implementation**: Functionality divided into specialized modules in the `setup/` directory
+3. **Orchestration**: The main `setup/index.js` orchestrates the entire setup process in a sequential flow
+4. **Configuration Management**: Specialized modules for different aspects of configuration (OAuth, environment variables, etc.)
+
+The setup process follows this flow:
+
+```mermaid
+flowchart TD
+    A[setup.js] --> B[setup/index.js]
+    B --> C[Check Project Structure]
+    C --> D[Generate NextAuth Secret]
+    D --> E[Install Dependencies]
+    E --> F[Setup Google OAuth]
+    F --> G[Setup GitHub OAuth]
+    G --> H[Update Auth Config]
+    H --> I[Setup Environment Variables]
+    I --> J[Complete Setup]
+```
+
+This modular approach provides several benefits:
+- Clear separation of concerns for different setup tasks
+- Easier maintenance and extension of the setup process
+- Improved error handling and logging for each step
+- Ability to run specific setup steps independently if needed
+
 ### Authentication Implementation
 
 The authentication system has been implemented using NextAuth.js with:
@@ -79,6 +122,7 @@ The authentication system has been implemented using NextAuth.js with:
 3. **API Route**: Created the [...nextauth] route handler for authentication requests
 4. **Client Integration**: Used useSession hook for client-side access to authentication state
 5. **Login/Registration**: Implemented sign-in and sign-up forms with validation
+6. **Setup Automation**: Dedicated setup scripts to configure OAuth providers and environment variables
 
 ```mermaid
 flowchart TD
