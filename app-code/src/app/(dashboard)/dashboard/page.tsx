@@ -115,7 +115,7 @@ export default function DashboardPage() {
       <div className="flex flex-col gap-4">
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         <p className="text-muted-foreground">
-          Welcome back, {session?.user?.name || "User"}! Here's an overview of your business metrics.
+          Welcome back, {session?.user?.name || "User"}! Here&apos;s an overview of your business metrics.
         </p>
       </div>
 

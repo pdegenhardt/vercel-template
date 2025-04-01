@@ -254,6 +254,7 @@ Key dependencies installed and used:
 - **Visualization**: recharts
 - **Utilities**: uuid, crypto (for NextAuth secret generation)
 - **Setup Utilities**: readline (for interactive prompts), chalk (for colored console output)
+- **Deployment**: GitHub Actions, Vercel deployment integration
 
 ### Environment Variables
 
@@ -267,3 +268,74 @@ The project uses environment variables for configuration, which are set up durin
 - **GOOGLE_CLIENT_SECRET**: Google OAuth client secret
 
 These variables are stored in a `.env.local` file in the app-code directory and loaded by Next.js at runtime.
+
+## Deployment Configuration
+
+### GitHub Actions Workflow
+
+The project includes a GitHub Actions workflow for continuous deployment to Vercel:
+
+```yaml
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main  # or your default branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'app-code/package-lock.json'
+          
+      - name: Install dependencies
+        run: |
+          cd app-code
+          npm ci
+          
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: ./app-code
+          vercel-args: '--prod'
+```
+
+### Vercel Configuration
+
+The deployment to Vercel requires the following configuration:
+
+1. **GitHub Repository Integration**: The repository is connected to Vercel for deployment
+2. **Project Configuration**:
+   - Framework Preset: Next.js
+   - Root Directory: `app-code`
+   - Build Command: `next build` (default)
+   - Output Directory: `.next` (default)
+3. **Environment Variables**: All variables from `.env.local` need to be added to the Vercel project
+4. **GitHub Secrets**:
+   - `VERCEL_TOKEN`: API token for Vercel authentication
+   - `VERCEL_ORG_ID`: Organization ID from Vercel
+   - `VERCEL_PROJECT_ID`: Project ID from Vercel
+
+### Deployment Documentation
+
+Comprehensive deployment documentation is provided in `VERCEL_DEPLOYMENT.md`, which includes:
+
+1. Step-by-step instructions for setting up a Vercel account
+2. Guidance on importing the GitHub repository to Vercel
+3. Instructions for obtaining the necessary Vercel tokens and IDs
+4. Steps to add the required secrets to the GitHub repository
+5. Information on custom domain setup (optional)
+6. Troubleshooting guidance for common deployment issues

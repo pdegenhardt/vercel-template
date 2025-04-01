@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { z } from "zod";
 import {
   DndContext,
   DragOverlay,
-  closestCorners,
-  closestCenter,
   rectIntersection, // Alternative collision detection
   KeyboardSensor,
   PointerSensor,
@@ -17,17 +16,25 @@ import {
   DragOverEvent,
 } from "@dnd-kit/core";
 import {
-  arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Task, TaskStatus, useTaskStore } from "@/store/task-store";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { TaskCard } from "@/components/tasks/task-card";
 import { TaskForm } from "@/components/tasks/task-form";
+
+// Define the task form values type based on the form schema
+interface TaskFormValues {
+  title: string;
+  description?: string;
+  status: TaskStatus;
+  priority: 'low' | 'medium' | 'high';
+  dueDate?: string;
+  assignee?: string;
+}
 
 // Define Column component structure (implementation later)
 interface ColumnProps {
@@ -41,7 +48,7 @@ interface ColumnProps {
 
 function Column({ id, label, color, tasks, onEditTask, onDeleteTask }: ColumnProps) {
   // Make the entire column a drop target
-  const { setNodeRef, isOver, active, over } = useDroppable({
+  const { setNodeRef, isOver, active } = useDroppable({
     id: id, // Use the column ID (todo, in-progress, etc.) as the droppable ID
     data: {
       type: 'column',
@@ -121,7 +128,7 @@ export default function TasksPage() {
   
   // handleDragOver can be simplified or removed if not needed for other effects
   // during dragging (like visual feedback). For now, just keeping it minimal.
-  const handleDragOver = (event: DragOverEvent) => {
+  const handleDragOver = (_: DragOverEvent) => {
     // console.log("Drag Over:", event); // Keep for debugging if needed
   };
   
@@ -186,7 +193,7 @@ export default function TasksPage() {
   };
   
   // Add new task
-  const handleAddTask = (values: any) => {
+  const handleAddTask = (values: TaskFormValues) => {
     const dueDate = values.dueDate ? new Date(values.dueDate) : undefined;
     
     addTask({
@@ -208,7 +215,7 @@ export default function TasksPage() {
   };
   
   // Update task
-  const handleUpdateTask = (values: any) => {
+  const handleUpdateTask = (values: TaskFormValues) => {
     if (!editingTask) return;
     
     const dueDate = values.dueDate ? new Date(values.dueDate) : undefined;

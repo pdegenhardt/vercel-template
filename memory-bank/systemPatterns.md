@@ -200,6 +200,26 @@ Error handling has been implemented at multiple levels:
 3. **UI Feedback**: Error states display user-friendly messages
 4. **Default Values**: Fallback values prevent UI crashes when data is missing
 
+## Deployment Architecture
+
+The project implements a continuous deployment architecture using GitHub Actions and Vercel:
+
+1. **GitHub Actions Workflow**: Created in `.github/workflows/vercel-deploy.yml` to automate the deployment process
+2. **Workflow Triggers**: Configured to automatically deploy on pushes to the main branch
+3. **Environment Setup**: Sets up Node.js and installs dependencies before deployment
+4. **Vercel Integration**: Uses the Vercel GitHub Action to deploy the application
+5. **Subdirectory Handling**: Configured to properly handle the project's subdirectory structure
+6. **Documentation**: Comprehensive setup guide in `VERCEL_DEPLOYMENT.md`
+
+```mermaid
+flowchart TD
+    A[Push to Main Branch] --> B[GitHub Actions Workflow]
+    B --> C[Set Up Node.js]
+    C --> D[Install Dependencies]
+    D --> E[Deploy to Vercel]
+    E --> F[Live Production Site]
+```
+
 ## Loading States Implementation
 
 Loading states have been implemented using:

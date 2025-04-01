@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { DataTable } from "@/components/data-table/data-table";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,7 +16,6 @@ import { dataService } from "@/lib/data-service";
 import type { ColumnDef } from "@/components/data-table/data-table";
 
 export default function DataPage() {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<DataItem[]>([]);
   const [meta, setMeta] = useState({
@@ -80,7 +78,7 @@ export default function DataPage() {
   // Initial data load and when filters change
   useEffect(() => {
     fetchData();
-  }, [meta.page, searchQuery, statusFilter, roleFilter]);
+  }, [meta.page, searchQuery, statusFilter, roleFilter, fetchData]);
 
   // Table columns
   const columns: ColumnDef<DataItem>[] = [
@@ -124,9 +122,9 @@ export default function DataPage() {
   ];
 
   // Add item
-  const handleAddItem = async (values: any) => {
+  const handleAddItem = async (values: z.infer<typeof createDataItemSchema>) => {
     try {
-      const newItem = await dataService.createItem(values);
+      await dataService.createItem(values);
       await fetchData();
       setIsAddDialogOpen(false);
       addForm.reset();
@@ -147,7 +145,7 @@ export default function DataPage() {
     setIsEditDialogOpen(true);
   };
 
-  const handleUpdateItem = async (values: any) => {
+  const handleUpdateItem = async (values: z.infer<typeof updateDataItemSchema>) => {
     if (!selectedItem) return;
     
     try {

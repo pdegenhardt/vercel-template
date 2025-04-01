@@ -49,7 +49,7 @@ export function ProfileImageUpload() {
         title: "Profile image updated",
         description: "Your profile image has been successfully updated.",
       })
-    } catch (error) {
+    } catch (_) {
       toast({
         title: "Upload failed",
         description: "There was a problem uploading your image.",

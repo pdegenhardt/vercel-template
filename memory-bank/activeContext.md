@@ -16,6 +16,15 @@ All major features have been implemented and are working as expected, with only 
 
 ## Recent Implementation Decisions
 
+### Deployment Automation Implementation
+
+- Implemented GitHub Actions workflow for automatic Vercel deployment:
+  - Created `.github/workflows/vercel-deploy.yml` to automate deployments on push to main branch
+  - Set up Node.js environment and dependency installation in the workflow
+  - Configured Vercel deployment using the official Vercel GitHub Action
+  - Added comprehensive documentation in `VERCEL_DEPLOYMENT.md` for setup guidance
+  - Designed the workflow to properly handle the project's subdirectory structure
+
 ### Setup Process Implementation
 
 - Implemented a modular setup architecture:

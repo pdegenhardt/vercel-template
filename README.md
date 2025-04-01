@@ -163,7 +163,26 @@ The Memory Bank is a structured documentation system designed to maintain perfec
    yarn dev
    ```
 
-5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Deployment
+
+This project includes automatic deployment to Vercel whenever changes are pushed to the main branch, using GitHub Actions.
+
+### Deployment Setup
+
+1. Create a Vercel account at [vercel.com](https://vercel.com)
+2. Import your GitHub repository to Vercel
+3. Configure the project with:
+   - Root Directory: `app-code`
+   - Framework Preset: Next.js
+4. Obtain the necessary Vercel tokens and IDs
+5. Add the following secrets to your GitHub repository:
+   - `VERCEL_TOKEN`
+   - `VERCEL_ORG_ID`
+   - `VERCEL_PROJECT_ID`
+
+For detailed instructions, see the [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md) file.
 
 ## Development Workflow
 
