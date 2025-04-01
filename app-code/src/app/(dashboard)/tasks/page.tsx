@@ -12,7 +12,6 @@ import {
   useDroppable, // For droppable columns
   DragEndEvent,
   DragStartEvent,
-  DragOverEvent,
 } from "@dnd-kit/core";
 import {
   SortableContext,
