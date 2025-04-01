@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { z } from "zod";
 import {
   DndContext,
   DragOverlay,
@@ -128,7 +127,7 @@ export default function TasksPage() {
   
   // handleDragOver can be simplified or removed if not needed for other effects
   // during dragging (like visual feedback). For now, just keeping it minimal.
-  const handleDragOver = (_: DragOverEvent) => {
+  const handleDragOver = () => {
     // console.log("Drag Over:", event); // Keep for debugging if needed
   };
   

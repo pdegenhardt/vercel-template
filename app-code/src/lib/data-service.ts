@@ -135,7 +135,7 @@ export const dataService = {
     }
 
     // Apply sorting
-    filteredData.sort((a: any, b: any) => {
+    filteredData.sort((a: DataItem, b: DataItem) => {
       const aValue = a[sort as keyof DataItem];
       const bValue = b[sort as keyof DataItem];
 

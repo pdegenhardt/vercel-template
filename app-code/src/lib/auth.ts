@@ -1,5 +1,5 @@
 import NextAuth from "next-auth/next";
-import type { DefaultSession, AuthOptions } from "next-auth";
+import type { AuthOptions, Session, User } from "next-auth";
 import type { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
@@ -82,14 +82,14 @@ export const config: AuthOptions = {
     newUser: "/sign-up",
   },
   callbacks: {
-    jwt({ token, user }: { token: JWT; user?: any }) {
+    jwt({ token, user }: { token: JWT; user?: User }) {
       if (user) {
         token.id = user.id;
         token.role = user.role;
       }
       return token;
     },
-    session({ session, token }: { session: any; token: JWT }) {
+    session({ session, token }: { session: Session; token: JWT }) {
       if (session.user) {
         session.user.id = token.id as string;
         session.user.role = token.role as string;

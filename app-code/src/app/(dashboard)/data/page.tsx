@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { DataTable } from "@/components/data-table/data-table";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -56,7 +56,7 @@ export default function DataPage() {
   });
 
   // Fetch data
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
       const result = await dataService.getItems({
@@ -73,12 +73,12 @@ export default function DataPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [meta.page, meta.pageSize, searchQuery, statusFilter, roleFilter]);
 
   // Initial data load and when filters change
   useEffect(() => {
     fetchData();
-  }, [meta.page, searchQuery, statusFilter, roleFilter, fetchData]);
+  }, [fetchData]);
 
   // Table columns
   const columns: ColumnDef<DataItem>[] = [
@@ -323,23 +323,29 @@ export default function DataPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <DataTable
-            data={data}
-            columns={columns}
-            onEdit={handleEditItem}
-            onDelete={handleDeleteItem}
-            onSearch={(query) => {
-              setSearchQuery(query);
-              setMeta({ ...meta, page: 1 }); // Reset to first page on search
-            }}
-            pagination={{
-              page: meta.page,
-              pageSize: meta.pageSize,
-              totalItems: meta.totalItems,
-              totalPages: meta.totalPages,
-              onPageChange: (page) => setMeta({ ...meta, page }),
-            }}
-          />
+          {isLoading ? (
+            <div className="flex justify-center items-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
+          ) : (
+            <DataTable
+              data={data}
+              columns={columns}
+              onEdit={handleEditItem}
+              onDelete={handleDeleteItem}
+              onSearch={(query) => {
+                setSearchQuery(query);
+                setMeta({ ...meta, page: 1 }); // Reset to first page on search
+              }}
+              pagination={{
+                page: meta.page,
+                pageSize: meta.pageSize,
+                totalItems: meta.totalItems,
+                totalPages: meta.totalPages,
+                onPageChange: (page) => setMeta({ ...meta, page }),
+              }}
+            />
+          )}
         </CardContent>
       </Card>
 
